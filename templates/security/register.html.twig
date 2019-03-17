@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register !{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 card card-body" style="margin-top:10px">
+            <form method="post" class="form form-horizontal">
+                <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+
+                <div class="form-group">
+                    <label for="inputLogin" class="sr-only">Login</label>
+                    <input type="text" name="login" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputFirstname" class="sr-only">First Name</label>
+                    <input type="text" name="firstname" id="inputFirstname" class="form-control" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="inputLastname" class="sr-only">Last Name</label>
+                    <input type="text" name="lastname" id="inputLastname" class="form-control" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="sr-only">Email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="inputLanguage" class="sr-only">Language</label>
+                    <select class="form-control" id="inputLanguage" name="language">
+                        <option value="FR" selected>Fançais</option>
+                        <option value="EN">English</option>
+                        <option value="NL">Nederlands</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPasswordRepeat" class="sr-only">Repeat Password</label>
+                    <input type="password" name="passwordRepeat" id="inputPasswordRepeat" class="form-control" placeholder="Repeat Password" required>
+                </div>
+
+
+                <button class="btn btn-success" type="submit">Register</button>
+            </form>
+            <br>
+            <a href="{{ url('app_login') }}"><i class="fa fa-external-link-alt"></i> Login</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

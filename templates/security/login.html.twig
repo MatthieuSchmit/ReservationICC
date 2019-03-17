@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 card card-body" style="margin-top:10px">
+                <form method="post" class="form form-horizontal">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+
+                    <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+
+                    <div class="form-group">
+                        <label for="inputLogin" class="sr-only">Login</label>
+                        <input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                    <button class="btn btn-success" type="submit">Sign in</button>
+                </form>
+
+                <p>
+                    <br>
+                    <a href="{{ url('app_register') }}"><i class="fa fa-external-link-alt"></i> Register</a>
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
