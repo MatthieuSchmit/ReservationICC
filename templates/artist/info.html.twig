@@ -4,10 +4,12 @@
 
 {% block body %}
 
-        <h2>{{ artist.firstname }} {{ artist.lastname }}</h2>
+    <h2>{{ artist.firstname }} {{ artist.lastname }}</h2>
 
-        {% if is_granted('ROLE_ADMIN') %}
-            ...
-        {% endif %}
+    {{ dump(artist) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        ...
+    {% endif %}
 
 {% endblock %}
