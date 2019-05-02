@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
+
+{% block body %}
+
+        <h2>Artists</h2>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="#" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+        {% endif %}
+
+
+        <table class="table table-bordered">
+            <thead>
+            <th>Name</th>
+            <th></th>
+            </thead>
+            <tbody>
+            {% for artist in artists %}
+                <tr>
+                    <td>{{ artist.firstname }} {{ artist.lastname }}</td>
+                    <td>
+                        <a href="{{ url('artist_info', {id: artist.id}) }}"><i class="fa fa-info"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

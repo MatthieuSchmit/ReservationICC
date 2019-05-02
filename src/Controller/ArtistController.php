@@ -20,4 +20,19 @@ class ArtistController extends AbstractController {
             'artists' => $artists
         ]);
     }
+
+    /**
+     * @Route(
+     *     name="artist_info",
+     *     path="/artist/{id}",
+     *     methods={"GET"},
+     * )
+     * @param $id
+     */
+    public function info($id) {
+        $artist = $this->getDoctrine()->getRepository(Artist::class)->findOrFail($id);
+        return $this->render('artist/info.html.twig', [
+            'artist' => $artist,
+        ]);
+    }
 }
