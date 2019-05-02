@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
 <style>
@@ -12,18 +12,6 @@
     <h1>Welcome ! ✅</h1>
 
     <hr>
-
-    {% if(app.user) %}
-        <p>
-            Logged as {{ app.user.firstname }} {{ app.user.lastname }} <br>
-            <a href="{{ url('app_logout') }}"><i class="fa fa-external-link-alt"></i> Logout</a>
-        </p>
-    {% else %}
-        <a href="{{ url('app_login') }}"><i class="fa fa-external-link-alt"></i> Login</a>
-        <br>
-        <a href="{{ url('app_register') }}"><i class="fa fa-external-link-alt"></i> Register</a>
-    {% endif %}
-
 
 </div>
 {% endblock %}
