@@ -23,6 +23,10 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="#">Profile</a>
                         <a href="#" class="dropdown-item">My Reservations</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <hr>
+                            <a href="{{ url('admin') }}" class="dropdown-item">Administration</a>
+                        {% endif %}
                         <hr>
                         <a href="{{ url('app_logout') }}" class="dropdown-item">Logout</a>
                     </div>
