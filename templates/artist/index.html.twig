@@ -7,7 +7,7 @@
     <h2>Artists</h2>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="#" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+        <a href="{{ url('artist_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
     {% endif %}
 
 
