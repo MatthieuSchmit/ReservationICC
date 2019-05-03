@@ -2,9 +2,10 @@
 
 {% block title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
 
+{% block page_title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
+
 {% block body %}
 
-    <h2>{{ artist.firstname }} {{ artist.lastname }}</h2>
 
     {{ dump(artist) }}
 
