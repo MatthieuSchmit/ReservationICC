@@ -7,26 +7,20 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LocalitiesFixture extends Fixture
-{
-    public function load(ObjectManager $manager)
+class LocalitiesFixture extends Fixture {
 
-    {
+    public function load(ObjectManager $manager) {
+
         $faker = Faker\Factory::create('fr_FR');
 
-        for($i=0; $i<100;$i++)
-        {
+        for($i=0; $i<100;$i++) {
+            $locality = new Locality();
+            $locality->setLocality($faker->city);
+            $locality->setPostalCode($faker->postcode);
+            $manager->persist($locality);
 
-            $Localities = new Locality();
-            $Localities->setLocality($faker->city);
-            $Localities->setPostalCode($faker->postcode);
-            $manager->persist($Localities);
+            $this->addReference('locality_' . $i, $locality);
         }
-
-
-
-
-
 
         $manager->flush();
     }

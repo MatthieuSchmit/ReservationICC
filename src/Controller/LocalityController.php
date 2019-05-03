@@ -11,9 +11,10 @@ class LocalityController extends AbstractController
     /**
      * @Route("/locality", name="locality")
      */
-    public function index()
-    {
-        $localities = '';// $this->getDoctrine()->getRepository(Locality::class)->findAll();
+    public function index() {
+
+        $localities = $this->getDoctrine()->getRepository(Locality::class)->findAll();
+
         return $this->render('locality/index.html.twig', [
             'controller_name' => 'LocalityController',
             "namevartest"=>"HEllo word",
