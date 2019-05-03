@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
+
+{% block body %}
+
+    <h2>{{ artist.firstname }} {{ artist.lastname }}</h2>
+
+    {{ dump(artist) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        ...
+    {% endif %}
+
+{% endblock %}
