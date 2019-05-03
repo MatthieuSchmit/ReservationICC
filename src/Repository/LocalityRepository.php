@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Localitie;
+use App\Entity\Locality;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Localitie|null find($id, $lockMode = null, $lockVersion = null)
- * @method Localitie|null findOneBy(array $criteria, array $orderBy = null)
- * @method Localitie[]    findAll()
- * @method Localitie[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Locality|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Locality|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Locality[]    findAll()
+ * @method Locality[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LocalitieRepository extends ServiceEntityRepository
+class LocalityRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Localitie::class);
+        parent::__construct($registry, Locality::class);
     }
 
     // /**
-    //  * @return Localitie[] Returns an array of Localitie objects
+    //  * @return Locality[] Returns an array of Locality objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class LocalitieRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Localitie
+    public function findOneBySomeField($value): ?Locality
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

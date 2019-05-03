@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Localities{% endblock %}
+
+{% block body %}
+
+
+
+    <table class="table table-bordered">
+        <thead>
+        <th>Locality</th>
+        <th>Postal Code</th>
+        </thead>
+        <tbody>
+        {% for locality in localities %}
+            <tr>
+                <td>{{ locality.locality }}</td>
+                <td>{{ locality.postalCode }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
