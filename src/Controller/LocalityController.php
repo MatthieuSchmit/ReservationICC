@@ -16,8 +16,6 @@ class LocalityController extends AbstractController
         $localities = $this->getDoctrine()->getRepository(Locality::class)->findAll();
 
         return $this->render('locality/index.html.twig', [
-            'controller_name' => 'LocalityController',
-            "namevartest"=>"HEllo word",
             'localities'=>$localities,
         ]);
     }
