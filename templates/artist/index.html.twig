@@ -16,6 +16,7 @@
         <thead>
         <th>Name</th>
         <th></th>
+        <th></th>
         </thead>
         <tbody>
         {% for artist in artists %}
@@ -26,6 +27,12 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         &nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-edit"></i></a>
                     {% endif %}
+                </td>
+                <td>
+                    {% for artistType in artist.type %}
+                        {{ artistType.id }}
+                        {{ artistType.type.type }}
+                    {% endfor %}
                 </td>
             </tr>
         {% endfor %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types{% endblock %}
+
+{% block page_title %}Types{% endblock %}
+
+{% block body %}
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button class="btn btn-success">Create New Type</button>
+
+        {{ form_end(form) }}
+    {% endif %}
+
+    <div class="row">
+        {% for type in types %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ type.type }}</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for artistType in type.artist %}
+                            <a href="{{ url('artist_info', {id: artistType.artist.id}) }}">{{ artistType.artist.firstname }} {{ artistType.artist.lastname }}</a> <br>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
