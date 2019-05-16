@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show {{ show.id }}{% endblock %}
+
+{% block page_title %}{{ show.title }}{% endblock %}
+
+{% block body %}
+
+    {{ dump(show) }}
+
+    {% for artistTypeShow in show.artists %}
+        {{ artistTypeShow.artistType.artist.firstname }} {{ artistTypeShow.artistType.artist.lastname }}
+        <small>{{ artistTypeShow.artistType.type.type }}</small> <br>
+    {% endfor %}
+
+{% endblock %}
