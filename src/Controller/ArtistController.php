@@ -15,7 +15,7 @@ class ArtistController extends AbstractController {
 
         $artists = $this->getDoctrine()->getRepository(Artist::class)->findAll();
 
-        return $this->render('artist/index.html.twig', [
+        return $this->render('artist/home.html.twig', [
             'controller_name' => 'ArtistController',
             'artists' => $artists
         ]);
