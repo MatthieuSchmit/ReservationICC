@@ -1,29 +1,166 @@
 {% extends 'base.html.twig' %}
+{% block head %}
 
-{% block title %}Hello HomeController!{% endblock %}
+
+{% endblock %}
+
+{% block title %}Home!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Welcome ! ✅</h1>
-
-    <hr>
-
-    {% if(app.user) %}
-        <p>
-            Logged as {{ app.user.firstname }} {{ app.user.lastname }} <br>
-            <a href="{{ url('app_logout') }}"><i class="fa fa-external-link-alt"></i> Logout</a>
-        </p>
-    {% else %}
-        <a href="{{ url('app_login') }}"><i class="fa fa-external-link-alt"></i> Login</a>
-        <br>
-        <a href="{{ url('app_register') }}"><i class="fa fa-external-link-alt"></i> Register</a>
-    {% endif %}
 
 
-</div>
+    <div class="container">
+        <div align=center  class="jumbotron">
+
+
+            <h1 class="display-3"><b>Your Théâtre</b></h1>
+
+            <p class="lead" style="color: #3b4151" ;><b>Your Théâtre vous proposes des places de théatre à thème tout au long de l'année afin de
+                profiter de ces spectacles inoubliable.</b></p>
+            <hr class="my-4">
+            <p><b>Vous etes intéréssé? Et vous désirez voir ou vous pourrez voir votre prochaine représentation?<b/></p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Voir nos pièces</a>
+            </p>
+        </div>
+
+
+        <h2 class="h1 mt-3 mb- 4">Nouvelles représentation!</h2>
+
+        <div class="row">
+
+            <div class="col-md-3">
+                    <div class="card bg-light mb-6">
+                        <div class="card-header text-center">
+                            UNE MAISON DE POUPEE<strong>49&euro;</strong>
+
+                        </div>
+                        <img src="https://www.theatreduparc.be/events/12056532215cb9d7cbaa421.jpg" alt="Avatar Ag sam"
+                             style="height: 200px; width: 100%; display: block">
+
+                        <div class="card-body"></div>
+                        <h4 class="card-title">La Rose</h4>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
+                            Quam?
+                        </p>
+                        <a href="#" class="btn btn-secondary">En savoir plus</a>
+                    </div>
+            </div>
+
+            <div class="col-md-3">
+                    <div class="card bg-light mb-6">
+                        <div class="card-header text-center">
+                            LE CHEVALIER D'ÉON  <strong>49&euro;</strong>
+
+                        </div>
+                        <img src="https://www.theatreduparc.be/events/17613934965ca5bf88ebe8b.jpg" alt="Avatar Ag sam"
+                             style="height: 200px; width: 100%; display: block">
+
+                        <div class="card-body"></div>
+                        <h4 class="card-title">LE CHEVALIER D'ÉON </h4>
+                        <p class="card-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
+                            Quam?
+                        </p>
+                        <a href="#" class="btn btn-secondary">En savoir plus</a>
+
+
+                    </div>
+
+            </div>
+
+            <div class="col-md-3">
+                <div class="card bg-light mb-6">
+                    <div class="card-header text-center">
+                        CYRANO DE BERGERAC <strong>49&euro;</strong>
+
+                    </div>
+                    <img src="https://www.theatreduparc.be/events/7895313505cb9dcba52c68.jpg" alt="Avatar Ag sam"
+                         style="height: 200px; width: 100%; display: block">
+
+                    <div class="card-body"></div>
+                    <h4 class="card-title">CYRANO DE BERGERAC </h4>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
+                        Quam?
+                    </p>
+                    <a href="#" class="btn btn-secondary">En savoir plus</a>
+
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="card bg-light mb-6">
+                    <div class="card-header text-center">
+                        LE LIVRE DE LA JUNGLE <strong>59&euro;</strong>
+
+                    </div>
+                    <img src="https://www.theatreduparc.be/events/6477283285cb9d16fd4bff.jpg" alt="Avatar Ag sam"
+                         style="height: 200px; width: 100%; display: block">
+
+                    <div class="card-body"></div>
+                    <h4 class="card-title">LE LIVRE DE LA JUNGLE</h4>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Accusamus aut autem dignissimos esse illo ipsa itaque laborum sint voluptate!
+                        Quam?
+                    </p>
+                    <a href="#" class="btn btn-secondary">En savoir plus</a>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <h2 class="h1 mt-3 mb-4">Avis des représentations</h2>
+        <div class="row">
+            <div class="col">
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Sam Agadi</h4>
+                        <hr>
+                        <div class="card-text">
+                            <img src="http://placehold.it/64x64" alt="Avatar Ag sam" class="float-left mr-3">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Consequatur, quisquam!</p>
+                            <a href="#" class="btn btn-success float-right">En savoir plus!</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Sol Schel</h4>
+                        <hr>
+                        <div class="card-text">
+                            <img src="http://placehold.it/64x64" alt="Avatar Ag sol" class="float-left mr-3">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                Consequatur, quisquam!</p>
+                            <a href="#" class="btn btn-success float-right">En savoir plus!</a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
 {% endblock %}
