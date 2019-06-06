@@ -1,22 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArtistController!{% endblock %}
+{% block title %}Artists{% endblock %}
+
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    {{ dump(artists) }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ url('artist_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
+    {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/Matthieu/Sites/ICC/reservations/src/Controller/ArtistController.php'|file_link(0) }}">src/Controller/ArtistController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/Matthieu/Sites/ICC/reservations/templates/artist/home.html.twig'|file_link(0) }}">templates/artist/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <table class="table table-bordered">
+        <thead>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+        </thead>
+        <tbody>
+        {% for artist in artists %}
+            <tr>
+                <td>{{ artist.firstname }} {{ artist.lastname }}</td>
+                <td>
+                    <a href="{{ url('artist_info', {id: artist.id}) }}"><i class="fa fa-info"></i></a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        &nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-edit"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% for artistType in artist.type %}
+                        {{ artistType.id }}
+                        {{ artistType.type.type }}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

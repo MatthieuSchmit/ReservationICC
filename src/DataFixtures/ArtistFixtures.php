@@ -5,22 +5,22 @@ namespace App\DataFixtures;
 use App\Entity\Artist;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker;
 
 class ArtistFixtures extends Fixture {
 
     public function load(ObjectManager $manager) {
 
-        $artists = [
-            ['firstname' => 'Bob', 'lastname' => 'Paddington'],
-            ['firstname' => 'John', 'lastname' => 'Doe'],
-            ['firstname' => 'James', 'lastname' => 'Smith']
-        ];
+        $faker = Faker\Factory::create('fr_FR');
 
-        foreach ($artists as $artist) {
-            $a = new Artist();
-            $a->setFirstname($artist['firstname']);
-            $a->setLastname($artist['lastname']);
-            $manager->persist($a);
+        for($i=0; $i<50;$i++)  {
+            $artist = new Artist();
+            $artist->setFirstname($faker->firstName);
+            $artist->setLastname($faker->lastName);
+            $manager->persist($artist);
+
+            $this->addReference('artist_' . $i, $artist);
+
         }
 
         $manager->flush();

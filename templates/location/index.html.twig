@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Locations{% endblock %}
+
+{% block page_title %}Locations{% endblock %}
+
+{% block body %}
+    <table class="table table-bordered">
+        <thead>
+        <th>Designation</th>
+        <th>Address</th>
+        <th>Website</th>
+        <th>Phone</th>
+        <th>Locality</th>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                <td>{{ location.designation }}</td>
+                <td>{{ location.address }}</td>
+                <td><a href="{{ location.website }}">{{ location.website }}</a></td>
+                <td><a href="phone:{{ location.phone }}">{{ location.phone }}</a></td>
+                <td>{{ location.locality.locality }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

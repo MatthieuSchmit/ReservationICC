@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block page_title %}Administration{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Shows</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <a href="#" class="card-link"><i class="fa fa-plus"></i> Add show</a>
+                    <a href="#" class="card-link"><i class="fa fa-list"></i> List shows</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Artists</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <a href="{{ url('artist_add') }}" class="card-link"><i class="fa fa-plus"></i> Add artist</a>
+                    <a href="{{ url('artist') }}" class="card-link"><i class="fa fa-list"></i> List artists</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Locations</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <a href="{{ url('location') }}" class="card-link"><i class="fa fa-list"></i> List locations</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <a href="#" class="card-link"><i class="fa fa-plus"></i> Add user</a>
+                    <a href="#" class="card-link"><i class="fa fa-list"></i> List users</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

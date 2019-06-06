@@ -23,6 +23,11 @@ class Type
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArtistType", mappedBy="type")
+     */
+    private $artist;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,5 +43,9 @@ class Type
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getArtist() {
+        return $this->artist;
     }
 }

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
+
+{% block page_title %}{{ artist.firstname }} {{ artist.lastname }}{% endblock %}
+
+{% block body %}
+
+    {% for artistType in artist.type %}
+        {{ artistType.type.type }} <br>
+    {% endfor %}
+
+    {{ dump(artist) }}
+
+    {% if is_granted('ROLE_ADMIN') %}
+        ...
+    {% endif %}
+
+{% endblock %}
