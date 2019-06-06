@@ -17,7 +17,7 @@
     <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Your Théâtre</a>
+        <a class="navbar-brand" href="{{ path('home') }}">Your Théâtre</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,16 +25,16 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Spectacles</a>
+                    <a class="nav-link" href="{{ path('show') }}">Spectacles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Prix</a>
+                    <a class="nav-link" href="{{ path('home') }}">Prix</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">A propos</a>
+                    <a class="nav-link" href="{{ path('home') }}">A propos</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

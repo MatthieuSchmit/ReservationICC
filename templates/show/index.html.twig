@@ -2,7 +2,6 @@
 
 {% block title %}Shows{% endblock %}
 
-{% block page_title %}Shows{% endblock %}
 
 {% block body %}
 
@@ -19,7 +18,7 @@
                         <h5 class="card-title">{{ show.title }}e</h5>
                         <h6 class="card-subtitle mb-2 text-muted">by John Doe</h6>
                         <p class="card-text">
-                            <img src="{{ show.posterUrl }}" alt="">
+                            <img src="https://placehold.it/64x64" alt="">
                         </p>
                         <a href="{{ url('show_info', {id: show.id}) }}" class="card-link">Infos</a>
                     </div>
