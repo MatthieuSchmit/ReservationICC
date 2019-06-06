@@ -1,6 +1,15 @@
 .jumbotron{
 
     margin-top: 20px;
-    background-image: url("https://cdn.pixabay.com/photo/2019/02/27/02/22/theater-4023278_960_720.jpg");
+    background-image: url("https://ae01.alicdn.com/kf/HTB1ZP0LXHArBKNjSZFLq6A_dVXaE/Laeacco-Old-Stage-Curtain-Lighting-Photo-Backgrounds-Customized-Digital-Photography-Backdrops-For-Photo-Studio.jpg_640x640.jpg");
     background-size: cover;
+}
+
+.navbar{
+    background-color: #8b6b60 !important;
+
+}
+.btn{
+    background-color: #8b6b60;
+
 }
