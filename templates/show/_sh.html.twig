@@ -1,0 +1,34 @@
+{#  {% set url = path('ads_show', {'slug': ad.slug}) %} #}
+
+<div class="col-md-4">
+
+    <div class="card bg-light mb-3">
+        <div class="card-header text-center">
+            {{ show.title }} <strong>{{ show.price }}&euro;</strong>
+        </div>
+
+        <!-- <a href="{#  {{ path('ads_show', {'slug':ad.slug}) }} #}"> -->
+            <img src="https://placehold.it/64x64" alt="Photo " style="height: 200px; width: 100%; display: block">
+        </a>
+
+        <div class="card-body">
+            <h4 class="card-title">
+                <!--  <a href=" {# {{ path('ads_show', {'slug':ad.slug}) }} #}" > -->
+                    {{ show.title }}
+                </a>
+            </h4>
+            <p class="card-text">
+                {{ show.title}}
+            </p>
+            <a href=" {{ path('show_getshow', {'slug':show.slug}) }} " class="btn btn-secondary">En savoir plus</a>
+{#
+            {% if app.user and app.user == ad.author %}
+                <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Modifier l'annonce</a>
+            {% endif %}
+
+#}
+        </div>
+
+    </div>
+
+</div>

@@ -19,17 +19,12 @@ class ShowController extends AbstractController {
     }
 
     /**
-     * @Route(
-     *     path="/show/{id}",
-     *     name="show_info",
-     *     methods={"GET"},
-     *     requirements={"id"="\d+"}
-     * )
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/show/{slug}", name="show_getshow")
+     *
+     * @return Response
      */
-    public function getShow($id) {
-        $show = $this->getDoctrine()->getRepository(Show::class)->find($id);
+    public function show(Show $show){
+
         return $this->render('show/info.html.twig', [
             'show' => $show
         ]);
