@@ -30,6 +30,7 @@ class ArtistTypeFixture extends Fixture {
 
             $manager->persist($at);
 
+            $this->addReference('artistType_' . $i, $at);
         }
 
         $manager->flush();
