@@ -23,6 +23,8 @@ class ShowFixture extends Fixture {
             $show->setLocation($this->getReference('location_' . rand(0,19)));
             $show->setBookable($faker->boolean);
             $show->setPrice($faker->randomFloat());
+            $show->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
+            $show->setCoverImage($faker->imageUrl(700,350));
 
             $manager->persist($show);
 
