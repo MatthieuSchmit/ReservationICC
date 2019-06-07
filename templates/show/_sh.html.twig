@@ -7,14 +7,14 @@
             {{ show.title }} <strong>{{ show.price }}&euro;</strong>
         </div>
 
-        <!-- <a href="{#  {{ path('ads_show', {'slug':ad.slug}) }} #}"> -->
-            <img src="https://placehold.it/64x64" alt="Photo " style="height: 200px; width: 100%; display: block">
+        <a href=" {{ path('show_getshow', {'slug':show.slug}) }} ">
+            <img src="{{ show.coverImage }}" alt="Photo " style="height: 200px; width: 100%; display: block">
         </a>
 
         <div class="card-body">
             <h4 class="card-title">
-                <!--  <a href=" {# {{ path('ads_show', {'slug':ad.slug}) }} #}" > -->
-                    {{ show.title }}
+                <a href=" {{ path('show_getshow', {'slug':show.slug}) }} ">
+                {{ show.title }}
                 </a>
             </h4>
             <p class="card-text">
