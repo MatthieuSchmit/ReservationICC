@@ -48,6 +48,11 @@ class Location
      */
     private $phone;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $coverImage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +126,18 @@ class Location
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(string $coverImage): self
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

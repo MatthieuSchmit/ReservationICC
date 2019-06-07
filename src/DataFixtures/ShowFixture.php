@@ -24,7 +24,7 @@ class ShowFixture extends Fixture {
             $show->setBookable($faker->boolean);
             $show->setPrice($faker->randomFloat());
             $show->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
-            $show->setCoverImage($faker->imageUrl(700,350));
+            $show->setCoverImage($faker->imageUrl(500,350));
 
             $manager->persist($show);
 

@@ -23,6 +23,7 @@ class LocationFixture extends Fixture {
             $location->setWebsite($faker->url);
             $location->setPhone($faker->phoneNumber);
             $location->setLocality($this->getReference('locality_' . $locality));
+            $location->setCoverImage($faker->imageUrl(200,200));
 
             $manager->persist($location);
 

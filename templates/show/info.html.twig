@@ -24,17 +24,32 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mb-3">
-                <h3 >{{ show.title}}</h3>
+                <div class="col-md-8 mb-3">
+                    <h3 >{{ show.title}}</h3>
 
-                {{ show.description | raw }}
+                    {{ show.description | raw }}
+                    <img src="{{ show.coverImage}}" class="avatar avatar-medium" alt="photo de {{ show.title}}">
+                </div>
 
-                <img src="{{ show.coverImage}}" class="avatar avatar-medium" alt="photo de {{ show.title}}">
+                <div class="row mb-2 align-items-center" >
+                    <div class="col">
+                        <a href="{{ path('location', {'slug': show.slug}) }}">
+                            <img src="{{ show.location.coverImage }}" class="avatar avatar-medium" alt="Avatar de {{ show.location.designation }}">
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{{ path('location', {'slug': show.slug}) }}">
+                            <h3>{{ show.location.designation }}</h3>
+                        </a>
+                        <span class="badge badge-primary">{#{{ a.ads | length }} #}Représentation(s)</span>
 
+                    </div>
+                </div>
 
-
-            </div>
         </div>
     </div>
+
+
+
 
 {% endblock %}

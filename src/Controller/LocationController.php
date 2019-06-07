@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LocationController extends AbstractController {
 
     /**
-     * @Route("/location", name="location")
+     * @Route("/location/{slug}", name="location")
      */
     public function index() {
 
