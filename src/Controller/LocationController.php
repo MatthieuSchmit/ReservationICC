@@ -10,13 +10,12 @@ class LocationController extends AbstractController {
 
     /**
      * @Route("/location/{slug}", name="location")
+     *
      */
-    public function index() {
-
-        $locations = $this->getDoctrine()->getRepository(Location::class)->findAll();
+    public function index(Location $location) {
 
         return $this->render('location/index.html.twig', [
-            'locations' => $locations,
+            'location' => $location,
         ]);
     }
 }

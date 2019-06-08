@@ -1,28 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Locations{% endblock %}
-
+{% block title %}{{ location.designation }}{% endblock %}
 
 {% block body %}
-    <table class="table table-bordered">
-        <thead>
-        <th>Designation</th>
-        <th>Address</th>
-        <th>Website</th>
-        <th>Phone</th>
-        <th>Locality</th>
-        </thead>
-        <tbody>
-        {% for location in locations %}
-            <tr>
-                <td>{{ location.designation }}</td>
-                <td>{{ location.address }}</td>
-                <td><a href="{{ location.website }}">{{ location.website }}</a></td>
-                <td><a href="phone:{{ location.phone }}">{{ location.phone }}</a></td>
-                <td>{{ location.locality.locality }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <img src="{{location.coverImage}}"  alt="Avatar de {{location.designation }}" class="avatar">
+                <br>
+
+            </div>
+            <div class="col-9">
+
+                <h1>{{location.designation }}</h1>
+               {# {% if user is same as(app.user) %}
+                    <div class="mt-3">
+                        <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-2">Modifier mes informations</a>
+                        <a href="{{ path('account_password') }}" class="btn btn-primary mr-2 mb-2">Modifier mon mot de passe</a>
+                    </div>
+                {% endif %} #}
+            </div>
+        </div>
+
+        {{ location.description | raw }}
+        <hr>
+
+        <h2>les représentation de  {{ location.designation }} </h2>
+
+        {% if location.rps | length > 0 %}
+            <div class="row">
+                {%  for rep in location.rps %}
+
+                    {%  include 'show/_sh.html.twig' %}
+
+                {% endfor %}
+
+            </div>
+        {%  else %}
+
+            <div class="alert alert-warning">
+                <p>
+                    <strong>{{ location.designation }} n' a pas encore de représenation(s)</strong>
+                </p>
+            </div>
+
+        {%  endif %}
+
+
+    </div>
 
 {% endblock %}

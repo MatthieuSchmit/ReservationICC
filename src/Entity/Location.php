@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,21 @@ class Location
      * @ORM\Column(type="string", length=255)
      */
     private $coverImage;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Representation", inversedBy="locations")
+     */
+    private $rps;
+
+    public function __construct()
+    {
+        $this->rps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +155,44 @@ class Location
     public function setCoverImage(string $coverImage): self
     {
         $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Representation[]
+     */
+    public function getRps(): Collection
+    {
+        return $this->rps;
+    }
+
+    public function addRp(Representation $rp): self
+    {
+        if (!$this->rps->contains($rp)) {
+            $this->rps[] = $rp;
+        }
+
+        return $this;
+    }
+
+    public function removeRp(Representation $rp): self
+    {
+        if ($this->rps->contains($rp)) {
+            $this->rps->removeElement($rp);
+        }
 
         return $this;
     }
