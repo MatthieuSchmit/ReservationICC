@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="https://placehold.it/128x128" alt="">
+                                <hr>
+                                <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
+                                <p>{{ app.user.email }}</p>
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-default">Logout</button>
+                                    <button class="btn btn-secondary btn-default">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ dump(app.user.representations) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
