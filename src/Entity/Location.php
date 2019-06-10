@@ -6,10 +6,15 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\LocationRepository")
+ * @ApiResource(
+ *     routePrefix="/v0",
+ *     itemOperations={"get"},
+ *     collectionOperations={}
+ * )
  */
 class Location
 {
@@ -27,11 +32,13 @@ class Location
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Groups({"show"})
      */
     private $designation;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show"})
      */
     private $address;
 
@@ -42,18 +49,27 @@ class Location
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"show"})
      */
     private $website;
 
     /**
      * @ORM\Column(type="string", length=30, nullable=true)
+     * @Groups({"show"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show"})
      */
     private $coverImage;
+
+    /**
+     * @Groups({"show"})
+     * @var $city String 'PostCode City'
+     */
+    private $city;
 
     /**
      * @ORM\Column(type="text")
@@ -195,5 +211,9 @@ class Location
         }
 
         return $this;
+    }
+
+    public function getCity() {
+        return $this->getLocality()->getPostalCode() . ' ' . $this->getLocality()->getLocality();
     }
 }

@@ -4,11 +4,30 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ShowRepository")
  * @ORM\Table(name="shows")
+ * @ApiResource(
+ *     routePrefix="/v0",
+ *     itemOperations={
+ *         "getOneShow"={
+ *             "route_name"="v0_get_one_show",
+ *             "normalization_context"={"groups"={"show"}},
+ *         },
+ *         "getOneShowBySlug"={
+ *             "route_name"="v0_get_one_show_slug",
+ *             "normalization_context"={"groups"={"show"}},
+ *         },
+ *     },
+ *     collectionOperations={
+ *         "getAllShows"={
+ *             "route_name"="v0_get_all_shows",
+ *             "normalization_context"={"groups"={"show"}},
+ *         },
+ *     }
+ * )
  */
 class Show
 {
@@ -16,36 +35,43 @@ class Show
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"show"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Groups({"show"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show"})
      */
     private $poster_url;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"show"})
      */
     private $bookable;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"show"})
      */
     private $price;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
+     * @Groups({"show"})
      */
     private $location;
 
@@ -61,13 +87,22 @@ class Show
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"show"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show"})
      */
     private $coverImage;
+
+    /**
+     * All artists - For API.
+     * @var $authors ['type' => 'FirstName LastName']
+     * @Groups({"show"})
+     */
+    private $cast;
 
     public function getId(): ?int
     {
@@ -176,5 +211,19 @@ class Show
         $this->coverImage = $coverImage;
 
         return $this;
+    }
+
+    /**
+     * Get all cast
+     * @return array [type => Names]
+     */
+    public function getCast() {
+        $cast = [];
+        foreach ($this->getArtists() as $artist) {
+            $cast[$artist->getArtistType()->getType()->getType()] =
+                $artist->getArtistType()->getArtist()->getFirstname() .
+                ' ' . $artist->getArtistType()->getArtist()->getLastname();
+        }
+        return $cast;
     }
 }
