@@ -13,6 +13,11 @@ div.container{
     background-color: #8b6b60 !important;
 
 }
+.avatar-micro{
+    max-width: 20px;
+    max-height: 20px;
+}
+
 .btn{
     background-color: #8b6b60;
 

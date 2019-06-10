@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="my-5">Gestion des annonces</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th class="text-center">Réservation</th>
+            <th class="text-center">Prix</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        {% for show in shows %}
+            <tr>
+                <td>{{show.id}}</td>
+                <td>{{show.title}}</td>
+                <td>
+                    <img src="{{ show.location.coverImage }}" alt="{{ show.location.designation }}" class="avatar avatar-micro mr-2">
+                </td>
+                <td class="text-center">
+                   <span class="badge badge-primary rounded">{{show.location.designation }}</span>
+                </td>
+                <td class="text-center">
+                   <span class="badge badge-primary rounded"> {{ show.price | number_format(1,',','')}}</span>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -31,7 +31,29 @@ class RepresentationUser
     /**
      * @ORM\Column(type="integer")
      */
-    private $seat;
+    public $seat;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
+
+    public function prePersist(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new \DateTime();
+        }
+
+        if (empty($this->amount)){
+            // prix de l'annonce * nombre de jour
+            $this->amount = $this->representation->showId->getPrice() * $this->getPlace();
+        }
+    }
+
 
     public function getId(): ?int
     {
@@ -70,6 +92,30 @@ class RepresentationUser
     public function setPlace(int $seat): self
     {
         $this->seat = $seat;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

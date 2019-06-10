@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réserver le spectacle: {{ show.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Réserver pour le spectacle: {{ show.title }}</h1>
+        <p>Vous etes sur le point de réserver le spectacle de <strong> </strong>!
+        </p>
+
+        {{ form_start(form) }}
+        <div class="alert alert-light">
+            <h2>Dites-nous combien de places vous désirez!</h2>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.seat) }}
+                </div>
+            </div>
+
+        </div>
+
+        <h4>Montant: <span id="amount">...</span> &euro;</h4>
+
+
+
+        <h2>Vous avez terminé!</h2>
+        <p>Envie de regarder un spectacle? Envie de changer ces habitudes ? Peu importe, on est avec vous! </p>
+
+        <button type="submit" class="btn btn-success">Je réserve!</button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

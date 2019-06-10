@@ -12,11 +12,11 @@
                 <strong>{{ show.price }} &euro;</strong>
 
             </p>
-            <a href="#" class="btn btn-primary">Reserver!</a>
+            <a href="{{ path('booking_create',{'slug' : show.slug})  }}" class="btn btn-primary">Reserver!</a>
 
             {% if  is_granted('ROLE_ADMIN') %}
                 <a href="{# {{ path('ads_edit', {'slug': ad.slug}) }} #}" class="btn btn-secondary">Modifier le spectacle</a>
-                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : {{  ad.title}}?`)">Supprimer l'annonce</a>
+                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : ?`)">Supprimer l'annonce</a>
             {% endif %}
 
         </div>
