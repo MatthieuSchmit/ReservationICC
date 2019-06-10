@@ -1,45 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Reservations{% endblock %}</title>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Reservations{% endblock %}</title>
 
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}{% endblock %}
 
     </head>
     <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ path('home') }}">Your Théâtre</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{{ path('home') }}">Your Théâtre</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor02">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('show') }}">Spectacles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}">Prix</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}">A propos</a>
-                </li>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('show') }}">Spectacles</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('home') }}">Prix</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('home') }}">A propos</a>
+            </li>
+        </ul>
+        {% if(app.user) %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ app.user.firstname }} {{ app.user.lastname }}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ url('admin') }}" class="dropdown-item">Administration</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{{ url('user_profile') }}" >Profil</a>
+                    <a class="dropdown-item" href="{{ url('home') }}" >Mes reservations</a>
+                    <hr>
+                    <a class="dropdown-item" href="{{ url('app_logout') }}" >Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Register</a></li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-        {% block body %}{% endblock %}
+        {% endif %}
+
+    </div>
+</nav>
+
+{% block body %}{% endblock %}
 
     {% include'partials/footer.html.twig' %}
 
@@ -47,6 +66,6 @@
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-            {% block javascripts %}{% endblock %}
-    </body>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
