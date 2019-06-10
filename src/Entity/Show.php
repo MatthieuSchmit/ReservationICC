@@ -16,6 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *             "route_name"="v0_get_one_show",
  *             "normalization_context"={"groups"={"show"}},
  *         },
+ *         "getOneShowBySlug"={
+ *             "route_name"="v0_get_one_show_slug",
+ *             "normalization_context"={"groups"={"show"}},
+ *         },
  *     },
  *     collectionOperations={
  *         "getAllShows"={

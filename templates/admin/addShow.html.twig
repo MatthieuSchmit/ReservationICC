@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration - Ajouter spectacles{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        .selectedShow {
+            background-color: rgb(173, 181, 189);
+        }
+    </style>
+
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row" id="pnl_shows">
+                <div class="col-md-12" id="colBtnAdd" style="margin-bottom:20px" hidden>
+                    <button class="btn btn-secondary btn-success" id="addShows">
+                        Add <span id="nbShows"></span> shows
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+
+
+            $.ajax({
+                url: 'https://www.theatre-contemporain.net/api/spectacles/all/search?k=b0c04bba8e0993d6f6f6a2004a68a4aeec91fb84',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                dataType: 'jsonp',
+                type: 'get',
+                success: function (shows) {
+                    console.log(shows);
+
+                    $.each(shows, function (i, item) {
+                        $('#pnl_shows').append(
+                            '<div class="col-md-2"><div class="card"><div class="card-body"><div class="text-center">'
+                            + '<img src="' + item.poster + '"><h5>' + item.title + '</h5>'
+                            + '<a href="' + item.permanent_url + '" target="_blank">Infos</a><br>'
+                            + '<button class="btn btn-secondary btn-default btnAddShow" data-object="' + item.object + '">Add this show</button>'
+                            + '</div></div></div></div>'
+                        );
+                    });
+
+                },
+                error: function (html) {
+                    console.error('Error ! ', html);
+                }
+            });
+
+
+
+            var shows = [];
+
+            // Remove article
+            $('#pnl_shows').on('click', 'button.btnAddShow', function () {
+
+                var slug = $(this).data('object');
+                console.log(slug);
+
+                if($(this).hasClass('selectedShow')) {
+                    // Unselect
+                    $(this).removeClass('selectedShow');
+                    var index = shows.indexOf(slug);
+                    if (index > -1) {
+                        shows.splice(index, 1);
+                    }
+
+                } else {
+                    // Select
+                    $(this).addClass('selectedShow');
+                    shows.push(slug)
+                }
+
+                console.log(shows);
+
+                changeNbToAdd();
+
+            });
+
+
+            function changeNbToAdd() {
+                $('#nbShows').text(shows.length)
+
+                if (shows.length > 0) {
+                    $('#colBtnAdd').removeAttr('hidden');
+                } else {
+                    $('#colBtnAdd').attr('hidden', 'hidden');
+                }
+
+            }
+
+
+            $('#addShows').click(function () {
+                shows.forEach(function (show) {
+                    $.ajax({
+                        url: 'https://www.theatre-contemporain.net/api/spectacles/' + show
+                            + '?k=b0c04bba8e0993d6f6f6a2004a68a4aeec91fb84',
+                        headers: {'Content-type': 'application/json'},
+                        dataType: 'jsonp',
+                        type: 'get',
+                        success: function (s) {
+                            console.log(s[0]);
+
+                        },
+                        error: function (html) {
+                            console.error('Error ! ', html);
+                        }
+                    });
+                });
+
+            });
+
+        });
+    </script>
+{% endblock %}
