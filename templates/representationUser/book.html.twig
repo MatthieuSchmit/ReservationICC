@@ -5,8 +5,8 @@
 
 {% block body %}
 
-    {% set rep = booking.representation.showId.artists.artistType %}
-    {% set artiste = rep.artist %}
+   {# {% set rep = booking.representation.showId.artists.artistType %} #}
+   {# {% set artist = rep.artist %}#}
 
     <div class="container">
         <h1>Votre réservation (n°{{ booking.id }})</h1>
@@ -19,11 +19,11 @@
                         <dt class="col-md-4">Numéro</dt>
                         <dd class="col-md-8">{{ booking.id }}</dd>
                         <dt class="col-md-4">Artist</dt>
-                        <dd class="col-md-8">{{ artist.firstname }}</dd>
+                        <dd class="col-md-8"> {#{{ booking.representation.showId.artists.artistType.artist.firstname }}#}</dd>
                         <dt class="col-md-4">Spectacle</dt>
                         <dd class="col-md-8">{{ booking.representation.showId.title}}</dd>
                         <dt class="col-md-4">Date</dt>
-                        <dd class="col-md-8">{{ booking.createDate | date('d/m/Y') }}</dd>
+                        <dd class="col-md-8">{#{{ booking.representation.date | date('d/m/Y') }} #}</dd>
                         <dt class="col-md-4">Montant total</dt>
                         <dd class="col-md-8">{{ booking.amount }} &euro;</dd>
 
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-9">
                             <h4>
-                                <a href="{{  path('location', {'slug': booking.representation.locations.slug}) }}">{{ artist.firstname }} {{ artist.lastname }}</a>
+                                <a href="{{  path('location', {'slug': booking.representation.location.slug}) }}">{#{{ artist.firstname }} {{ artist.lastname }}#}</a>
                             </h4>
 
 
@@ -46,7 +46,7 @@
                     </div>
                     {{ booking.representation.showId.description | raw }}
 
-                    <a href="{{ path('user_show', {'slug': author.slug}) }}" class="btn btn-primary"> Plusd'info {{ author.firstName }}</a>
+                    <a href="{#{{ path('user_show', {'slug': author.slug}) }} #}" class="btn btn-primary"> Plusd'info {# {{ author.firstName }} #}</a>
                 </div>
             </div>
             <div class="col">
@@ -55,7 +55,7 @@
 
                     <h2 class="alert-heading">Votre spectacle</h2>
                     <h4>
-                        <a href="{{ path('show_getshow', {'slug': booking.representation.showId.slug) }}">{{ booking.representation.showId.title}}</a>
+                        <a href="{{ path('show_getshow', {'slug': booking.representation.showId.slug}) }}">{{ booking.representation.showId.title}}</a>
                     </h4>
                 </div>
             </div>

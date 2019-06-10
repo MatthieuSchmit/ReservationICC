@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réserver le spectacle: {{ show.title }}{% endblock %}
+{% block title %}Réserver le spectacle: {{ rep.showId.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Réserver pour le spectacle: {{ show.title }}</h1>
+        <h1>Réserver pour le spectacle: {{ rep.showId.title }}</h1>
+        <h4>{{ rep.date | date('d-m-Y à H:i') }}</h4>
         <p>Vous etes sur le point de réserver le spectacle de <strong> </strong>!
         </p>
 

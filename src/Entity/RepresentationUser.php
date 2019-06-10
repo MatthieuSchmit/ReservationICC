@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RepresentationUserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class RepresentationUser
 {
@@ -34,26 +36,25 @@ class RepresentationUser
     public $seat;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $amount;
 
+    /**
+     * Callback appelé à chaque fois qu'on créé une réservation
+     *
+     * @ORM\PrePersist
+     *
+     * @return void
+     *
+     */
     public function prePersist(){
-        if(empty($this->createdAt)){
-            $this->createdAt = new \DateTime();
-        }
 
         if (empty($this->amount)){
-            // prix de l'annonce * nombre de jour
+            // prix du specatcle * nombre de place
             $this->amount = $this->representation->showId->getPrice() * $this->getPlace();
         }
     }
-
 
     public function getId(): ?int
     {
@@ -96,18 +97,6 @@ class RepresentationUser
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getAmount(): ?float
     {
         return $this->amount;
@@ -119,4 +108,5 @@ class RepresentationUser
 
         return $this;
     }
+
 }

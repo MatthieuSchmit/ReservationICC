@@ -23,7 +23,7 @@ class Representation
      * @ORM\ManyToOne(targetEntity="App\Entity\Show")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $showId;
+    public $showId;
 
     /**
      * @ORM\Column(type="datetime")

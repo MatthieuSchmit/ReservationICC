@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 
+use App\Entity\Representation;
 use App\Entity\RepresentationUser;
 use App\Entity\Show;
 use App\Form\RepresentationType;
@@ -17,11 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class RepresentationUserController extends AbstractController
 {
     /**
-     * @Route("/show/{slug}/book", name="booking_create")
+     * @Route("/book/{id}", name="booking_create")
      * @IsGranted("ROLE_USER")
      */
-    public function book(Show $show, Request $request, ObjectManager $manager)
+    public function book($id, Request $request, ObjectManager $manager)
     {
+        $rep =$this->getDoctrine()->getRepository(Representation::class)->find($id);
+
         $booking = new RepresentationUser();
         $form = $this->createForm(representationType::class, $booking);
 
@@ -31,16 +34,17 @@ class RepresentationUserController extends AbstractController
             $user = $this->getUser();
 
             $booking->setUser($user)
-                    ->setRepresentation($show->getRepresentations());
+                    ->setRepresentation($rep)
+                    ->setPlace($form->getData()->getPlace());
 
             $manager->persist($booking);
             $manager->flush();
 
-            return $this->redirectToRoute('booking_success', ['id' => $booking->getId()]);
+            return $this->redirectToRoute('booking_show', ['id' => $booking->getId()]);
         }
 
         return $this->render('representationUser/representation.html.twig', [
-            'show' => $show,
+            'rep' => $rep,
             'form' => $form->createView()
         ]);
     }
@@ -48,7 +52,7 @@ class RepresentationUserController extends AbstractController
     /**
      * Permet d'afficher la page d'une réservation
      *
-     * @Route("/booking/{id}", name="boking_show")
+     * @Route("/booking/{id}", name="booking_show")
      *
      *
      * @return Response

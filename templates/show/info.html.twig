@@ -5,51 +5,69 @@
 
 {% block body %}
 
-    <div class="container-fluid" style="background-image: url('{{show.coverImage}}')" >
-        <div class="container">
-            <h1>{{ show.title }}</h1>
-            <p class="h2">
-                <strong>{{ show.price }} &euro;</strong>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1>{{ show.title }}</h1>
+                            <p class="h2">
+                                <strong>{{ show.price }} &euro;</strong>
 
-            </p>
-            <a href="{{ path('booking_create',{'slug' : show.slug})  }}" class="btn btn-primary">Reserver!</a>
+                            </p>
 
-            {% if  is_granted('ROLE_ADMIN') %}
-                <a href="{# {{ path('ads_edit', {'slug': ad.slug}) }} #}" class="btn btn-secondary">Modifier le spectacle</a>
-                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : ?`)">Supprimer l'annonce</a>
-            {% endif %}
 
+                            {% if  is_granted('ROLE_ADMIN') %}
+                                <a href="{# {{ path('ads_edit', {'slug': ad.slug}) }} #}" class="btn btn-secondary">Modifier le spectacle</a>
+                                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : ?`)">Supprimer l'annonce</a>
+                            {% endif %}
+
+                            {{ show.description | raw }}
+                            <img src="{{ show.coverImage}}" class="avatar avatar-medium" alt="photo de {{ show.title}}">
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{{ path('location', {'slug': show.location.slug}) }}">
+                                <img src="{{ show.location.coverImage }}" class="avatar avatar-medium" alt="Avatar de {{ show.location.designation }}">
+                            </a>
+                            <a href="{{ path('location', {'slug': show.location.slug}) }}">
+                                <h3>{{ show.location.designation }}</h3>
+                            </a>
+                            <span class="badge badge-primary">{#{{ a.ads | length }} #}Représentation(s)</span>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Représentation</h5>
+                            <table class="table table-bordered">
+                                {% for representation in show.representations %}
+                                    <tr>
+                                        <td>{{representation.date|date('Y-m-d H:i')}}</td>
+                                        <td>
+                                            <a href="{{ path('booking_create',{'id' : representation.id})  }}" class="btn btn-primary btn-sm">Reserver!</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="container">
-        <div class="row">
-                <div class="col-md-8 mb-3">
-                    <h3 >{{ show.title}}</h3>
-
-                    {{ show.description | raw }}
-                    <img src="{{ show.coverImage}}" class="avatar avatar-medium" alt="photo de {{ show.title}}">
-                </div>
-
-                <div class="row mb-2 align-items-center" >
-                    <div class="col">
-                        <a href="{{ path('location', {'slug': show.location.slug}) }}">
-                            <img src="{{ show.location.coverImage }}" class="avatar avatar-medium" alt="Avatar de {{ show.location.designation }}">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="{{ path('location', {'slug': show.location.slug}) }}">
-                            <h3>{{ show.location.designation }}</h3>
-                        </a>
-                        <span class="badge badge-primary">{#{{ a.ads | length }} #}Représentation(s)</span>
-
-                    </div>
-                </div>
-
-        </div>
-    </div>
-
-
 
 
 {% endblock %}
