@@ -19,11 +19,17 @@
                         <dt class="col-md-4">Numéro</dt>
                         <dd class="col-md-8">{{ booking.id }}</dd>
                         <dt class="col-md-4">Artist</dt>
-                        <dd class="col-md-8"> {#{{ booking.representation.showId.artists.artistType.artist.firstname }}#}</dd>
+                        <dd class="col-md-8">
+                            {{ booking.representation.showId.artists[0].artistType.artist.firstname }}
+
+                            {%  for artist in booking.representation.showId.cast  %}
+                                {{ dump(artist) }}
+                            {% endfor %}
+                        </dd>
                         <dt class="col-md-4">Spectacle</dt>
                         <dd class="col-md-8">{{ booking.representation.showId.title}}</dd>
                         <dt class="col-md-4">Date</dt>
-                        <dd class="col-md-8">{#{{ booking.representation.date | date('d/m/Y') }} #}</dd>
+                        <dd class="col-md-8">{{ booking.representation.date | date('d/m/Y') }} </dd>
                         <dt class="col-md-4">Montant total</dt>
                         <dd class="col-md-8">{{ booking.amount }} &euro;</dd>
 
