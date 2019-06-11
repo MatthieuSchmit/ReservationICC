@@ -27,7 +27,7 @@
                 <a class="nav-link" href="{{ path('show') }}">Spectacles</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('home') }}">Prix</a>
+                <a class="nav-link" href="{{ path('all_location') }}">Theatres</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('home') }}">A propos</a>
@@ -40,7 +40,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ url('admin_add_show') }}" class="dropdown-item">Administration</a>
+                        <a href="{{ url('admin') }}" class="dropdown-item">Administration</a>
                     {% endif %}
                     <a class="dropdown-item" href="{{ url('user_profile') }}" >Profil</a>
                     <a class="dropdown-item" href="{{ url('home') }}" >Mes reservations</a>

@@ -11,9 +11,6 @@
         }
     </style>
 
-
-
-
     <div class="card">
         <div class="card-body">
             <div class="row" id="pnl_shows">
@@ -22,6 +19,9 @@
                         Add <span id="nbShows"></span> shows
                     </button>
                 </div>
+            </div>
+            <div class="text-center" id="loadImg">
+                <img src="{{ asset('img/load.gif') }}" alt="">
             </div>
         </div>
     </div>
@@ -44,6 +44,8 @@
                 success: function (shows) {
                     console.log(shows);
 
+                    $('#loadImg').attr('hidden', 'hidden');
+
                     $.each(shows, function (i, item) {
                         $('#pnl_shows').append(
                             '<div class="col-md-2"><div class="card"><div class="card-body"><div class="text-center">'
@@ -59,7 +61,6 @@
                     console.error('Error ! ', html);
                 }
             });
-
 
 
             var shows = [];
@@ -105,6 +106,9 @@
 
             $('#addShows').click(function () {
                 shows.forEach(function (show) {
+
+
+
                     $.ajax({
                         url: 'https://www.theatre-contemporain.net/api/spectacles/' + show
                             + '?k=b0c04bba8e0993d6f6f6a2004a68a4aeec91fb84',
@@ -113,6 +117,7 @@
                         type: 'get',
                         success: function (s) {
                             console.log(s[0]);
+
 
                         },
                         error: function (html) {

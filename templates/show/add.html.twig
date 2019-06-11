@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Show{% endblock %}
+
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row" style="padding:20px">
+            <div class="col-md-6">
+                <h4>Infos</h4>
+                <form class="form form-horizontal">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" id="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" class="form-control" name="slug" id="slug">
+                    </div>
+                    <div class="form-group">
+                        <label for="posterUrl">Poster URL</label>
+                        <input type="url" class="form-control" name="posterUrl" id="posterUrl">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" name="price" id="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" id="" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" id="saveShow" type="button">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h4>Location</h4>
+                <select name="location" id="location" class="form-control">
+                    {% for location in locations %}
+                        <option value="{{ location.id }}">{{ location.designation }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <h4>Cast</h4>
+                {% for cast in casts %}
+                    <div class="form-check">
+                        <input class="form-check-input checkbox" type="checkbox" value="{{ cast.id }}" id="{{ cast.id }}">
+                        <label class="form-check-label" for="{{ cast.id }}">
+                            {{ cast.artist.firstname }} {{ cast.artist.lastname }} ({{ cast.type.type }})
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#saveShow').click(function () {
+                var title = $('#title').val();
+                var slug = $('#slug').val();
+                var posterUrl = $('#posterUrl').val();
+                var price = $('#price').val();
+                var description = $('#description').val();
+                var location = $('#location').val();
+                var cast = $(".checkbox:checked");
+
+                var casts = [];
+                $.each(cast, function (i, item) {
+                   casts.push(item.value);
+                });
+
+                $.ajax({
+                    url: '{{ url('show_store') }}',
+                    type: 'post',
+                    data: {
+                        title:title, slug:slug, posterUrl:posterUrl, price:price, description:description,
+                        location:location, casts:casts
+                    },
+                    success: function (id) {
+                        console.log(id);
+                        window.location.href = "{{ url('show') }}";
+                    },
+                    error: function (html) {
+                        console.error('Error ! ', html);
+                    }
+                });
+
+            });
+        });
+    </script>
+{% endblock %}

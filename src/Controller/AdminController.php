@@ -11,14 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController {
 
     /**
-     * @Route("/admin/shows", name="admin_shows_index")
+     * @Route("/admin", name="admin")
      */
-    public function index(ShowRepository $repo) {
-
-
-        return $this->render('admin/show/shows.html.twig', [
-            'shows' => $repo->findAll()
-        ]);
+    public function index() {
+        return $this->render('admin/index.html.twig', []);
     }
 
     /**
@@ -28,42 +24,6 @@ class AdminController extends AbstractController {
      */
     public function addShow() {
         return $this->render('admin/addShow.html.twig', []);
-    }
-
-    /**
-     * @Route(
-     *     path="/admin/show/store",
-     *     name="admin_store_show",
-     *     methods={"POST"},
-     * )
-     * @IsGranted("ROLE_ADMIN")
-     *
-     * @param Request $request
-     */
-    public function storeShows(Request $request) {
-
-        $shows = $request->query->get('shows');
-
-        var_dump($shows);die();
-
-        foreach ($shows as $s) {
-            $apiRequest = 'https://www.theatre-contemporain.net/api/spectacles/' . $s
-                . '?k=b0c04bba8e0993d6f6f6a2004a68a4aeec91fb84';
-
-            $apiCall = curl_init($apiRequest);
-            $apiCallOptions = array(
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-            );
-            curl_setopt_array($apiCall, $apiCallOptions);
-
-            $show =  json_decode(curl_exec($apiCall));
-
-            var_dump($show);die();
-        }
-
-
-
     }
 
 }

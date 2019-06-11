@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        .card {
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-3" onclick="window.location.href = '{{ url('show_add') }}';">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Create new show</h5>
+                        (form)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" onclick="window.location.href = '{{ url('admin_add_show') }}';">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add new show</h5>
+                        (theatre-contemporain.net)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3" onclick="window.location.href = '{{ url('artist_add') }}';">
+                <div class="card"><div class="card-body"><h5 class="card-title">Create new artist</h5></div></div>
+            </div>
+
+            <div class="col-md-3" onclick="window.location.href = '{{ url('artist') }}';">
+                <div class="card"><div class="card-body"><h5 class="card-title">View all artists</h5></div></div>
+            </div>
+
+            <div class="col-md-3" onclick="window.location.href = '{{ url('create_location') }}';">
+                <div class="card"><div class="card-body"><h5 class="card-title">Create new location</h5></div></div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
