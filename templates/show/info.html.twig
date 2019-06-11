@@ -2,6 +2,11 @@
 
 {% block title %}{{ show.title }}{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('timePicker/themes/classic.css') }}">
+    <link rel="stylesheet" href="{{ asset('timePicker/themes/classic.date.css') }}">
+    <link rel="stylesheet" href="{{ asset('timePicker/themes/classic.time.css') }}">
+{% endblock %}
 
 {% block body %}
 
@@ -15,8 +20,11 @@
             <a href="{{ path('booking_create',{'slug' : show.slug})  }}" class="btn btn-primary">Reserver!</a>
 
             {% if  is_granted('ROLE_ADMIN') %}
-                <a href="{# {{ path('ads_edit', {'slug': ad.slug}) }} #}" class="btn btn-secondary">Modifier le spectacle</a>
-                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : ?`)">Supprimer l'annonce</a>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">Update</button>
+                    <button class="btn btn-secondary" data-toggle="modal" data-target="#addRepModal">Add Representation</button>
+                    <button class="btn btn-secondary">Bookable : {{ (show.bookable) ? 'true' : 'false' }}</button>
+                </div>
             {% endif %}
 
         </div>
@@ -49,7 +57,163 @@
         </div>
     </div>
 
+    <!-- Modal Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="title" id="updateTitle" value="{{ show.title }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="updateDescription" rows="10"
+                                      class="form-control">{{ show.description }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="number" class="form-control" name="price" id="updatePrice" value="{{ show.price }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookable">Bookable</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bookable" id="bookableTrue"
+                                       value="1" {{ (show.bookable) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="bookableTrue">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bookable" id="bookableFalse"
+                                       value="0" {{ (show.bookable) ? '' : 'checked' }}>
+                                <label class="form-check-label" for="bookableFalse">False</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveUpdate">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Representation -->
+    <div class="modal fade" id="addRepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Representation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label for="dateRep">Date</label>
+                            <input id="dateRep" name="dateRep">
+                        </div>
+                        <div class="form-group">
+                            <label for="timeRep">Time</label>
+                            <input id="timeRep" name="timeRep">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveRep">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('timePicker/picker.js') }}"></script>
+    <script src="{{ asset('timePicker/picker.date.js') }}"></script>
+    <script src="{{ asset('timePicker/picker.time.js') }}"></script>
+    <script>
+        $(function () {
+
+            // Update show
+            $('#saveUpdate').click(function () {
+                var id = '{{ show.id }}';
+                var title = $('#updateTitle').val();
+                var description = $('#updateDescription').val();
+                var price = $('#updatePrice').val();
+                var bookable = $('input[name="bookable"]:checked').val();
+
+                // show_update
+
+                $.ajax({
+                    url: '{{ url('show_update') }}',
+                    method: 'post',
+                    data: {
+                        id:id, title:title, description:description, price:price, bookable:bookable
+                    },
+                    success: function (e) {
+                        console.log(e);
+                        location.reload();
+                    },
+                    error: function (e) {
+                        console.error(e);
+                    },
+                });
+
+            });
+
+            // Add representation
+            $('#saveRep').click(function () {
+                var id = '{{ show.id }}';
+                var dateRep = $('#dateRep').val();
+                var timeRep = $('#timeRep').val();
+
+                $.ajax({
+                    url: '{{ url('representation_store') }}',
+                    method: 'post',
+                    data: {
+                        show_id: id,
+                        date: dateRep + ' ' + timeRep,
+                    },
+                    success: function (e) {
+                        console.log(e);
+                        // TODO : add new representation into table
+                        location.reload();
+                    },
+                    error: function (e) {
+                        console.error(e);
+                    },
+                });
+
+            });
+
+            // DatePIcker
+            $('#dateRep').pickadate({
+                min: undefined,
+                format: 'yyyy-mm-dd',
+            });
+
+            // TimePicker
+            $('#timeRep').pickatime({
+                format: 'HH:i',
+                interval: 30,
+            });
+
+        });
+    </script>
 {% endblock %}

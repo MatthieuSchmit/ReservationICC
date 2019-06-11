@@ -172,4 +172,31 @@ class ShowController extends AbstractController {
         return new Response('Show Created !', 201);
 
     }
+
+    /**
+     * @Route(
+     *     path="/admin/show/update",
+     *     name="show_update",
+     *     methods={"POST"},
+     * )
+     * @IsGranted("ROLE_ADMIN")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request) {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $show = $doctrine->getRepository(Show::class)->find($request->get('id'));
+        $show->setTitle($request->get('title'));
+        $show->setDescription($request->get('description'));
+        $show->setPrice($request->get('price'));
+        $show->setBookable($request->get('bookable'));
+        $em->persist($show);
+        $em->flush();
+
+        return new Response('Show Updated !', 200);
+
+    }
+
 }

@@ -8,14 +8,6 @@
 
     <h1 class ="my-3" align="center">Tous nos spectacles</h1>
 
-
-    <div class="row">
-
-
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ url('artist_add') }}" class="btn btn-success"><i class="fa fa-plus"></i> New</a>
-    {% endif %}
-
     <div class="row">
         {% for show in shows | reverse %}
             {% include 'show/_sh.html.twig' %}
