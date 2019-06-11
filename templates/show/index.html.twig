@@ -17,7 +17,7 @@
     {% endif %}
 
     <div class="row">
-        {% for show in shows %}
+        {% for show in shows | reverse %}
             {% include 'show/_sh.html.twig' %}
         {% endfor %}
     </div>

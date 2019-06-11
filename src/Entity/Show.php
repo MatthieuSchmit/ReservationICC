@@ -256,7 +256,7 @@ class Show
     public function getCast() {
         $cast = [];
         foreach ($this->getArtists() as $artist) {
-            $cast[$artist->getArtistType()->getType()->getType()] =
+            $cast[$artist->getArtistType()->getType()->getType()][] =
                 $artist->getArtistType()->getArtist()->getFirstname() .
                 ' ' . $artist->getArtistType()->getArtist()->getLastname();
         }

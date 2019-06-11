@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Artist;
 use App\Entity\ArtistType;
 use App\Entity\ArtistTypeShow;
 use App\Entity\Location;
 use App\Entity\Show;
+use App\Entity\Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,18 +66,86 @@ class ShowController extends AbstractController {
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
+        $casts = $request->get('casts') ?? [];
         $source = $request->get('source') ?? '';
         if($source == 'theatreContemporain') {
-            $slug = $request->get('object');
+            $slug = $request->get('slug');
             $show = $doctrine->getRepository(Show::class)->findBy(['slug' => $slug]);
             if(count($show) > 0) {
                 return new Response('Show already existing !', 204);
             }
+
+            // CAST
+            foreach ($request->get('authors') as $item) {
+                $type = $doctrine->getRepository(Type::class)->findOneBy(['type' => 'Auteur']);
+                $artist = $doctrine->getRepository(Artist::class)
+                    ->findOneBy([
+                        'firstname' => $item['firstname'],
+                        'lastname' => $item['lastname'],
+                    ]);
+                if ($artist == null) {
+                    $artist = new Artist();
+                    $artist->setFirstname($item['firstname']);
+                    $artist->setLastname($item['lastname']);
+                    $em->persist($artist);
+                }
+                $artistType = new ArtistType();
+                $artistType->setArtist($artist);
+                $artistType->setType($type);
+                $em->persist($artistType);
+                $em->flush();
+                $casts[] = $artistType->getId();
+            }
+            foreach ($request->get('directors') as $item) {
+                $type = $doctrine->getRepository(Type::class)->findOneBy(['type' => 'Producteur']);
+                $artist = $doctrine->getRepository(Artist::class)
+                    ->findOneBy([
+                        'firstname' => $item['firstname'],
+                        'lastname' => $item['lastname'],
+                    ]);
+                if ($artist == null) {
+                    $artist = new Artist();
+                    $artist->setFirstname($item['firstname']);
+                    $artist->setLastname($item['lastname']);
+                    $em->persist($artist);
+                }
+                $artistType = new ArtistType();
+                $artistType->setArtist($artist);
+                $artistType->setType($type);
+                $em->persist($artistType);
+                $em->flush();
+                $casts[] = $artistType->getId();
+            }
+            foreach ($request->get('actors') as $item) {
+                $type = $doctrine->getRepository(Type::class)->findOneBy(['type' => 'Acteur']);
+                $artist = $doctrine->getRepository(Artist::class)
+                    ->findOneBy([
+                        'firstname' => $item['firstname'],
+                        'lastname' => $item['lastname'],
+                    ]);
+                if ($artist == null) {
+                    $artist = new Artist();
+                    $artist->setFirstname($item['firstname']);
+                    $artist->setLastname($item['lastname']);
+                    $em->persist($artist);
+                }
+                $artistType = new ArtistType();
+                $artistType->setArtist($artist);
+                $artistType->setType($type);
+                $em->persist($artistType);
+                $em->flush();
+                $casts[] = $artistType->getId();
+            }
+
         }
 
         $show = new Show();
 
-        $location = $doctrine->getRepository(Location::class)->find($request->get('location'));
+        if ($source == 'theatreContemporain') {
+            $location = $doctrine->getRepository(Location::class)->findAll()[0];
+        } else {
+            $location = $doctrine->getRepository(Location::class)->find($request->get('location'));
+        }
         $show->setLocation($location);
 
         $show->setSlug($request->get('slug'));
@@ -89,7 +159,6 @@ class ShowController extends AbstractController {
         $em->persist($show);
 
         // Cast
-        $casts = $request->get('casts');
         foreach ($casts as $cast) {
             $artistType = $doctrine->getRepository(ArtistType::class)->find($cast);
             $artistTypeShow = new ArtistTypeShow();
