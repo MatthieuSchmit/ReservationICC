@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h4>Lorem Ipsum</h4>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab commodi consequuntur deserunt dolor, error eum, fugit illo in ipsum nesciunt numquam praesentium provident quaerat recusandae saepe vel voluptatem voluptates, voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab animi atque autem et ex, fugiat laudantium magnam nesciunt ratione repudiandae sunt tempora temporibus vel voluptas. Blanditiis consequatur dolorem vel?
+        </p>
+
+        <h4>Documentation API</h4>
+        <p>
+            <a href="{{ url('home') }}api">{{ url('home') }}api</a>
+        </p>
+
+        <h4>PDF</h4>
+        <embed src="{{ asset('src/PID.pdf') }}" width="800px" height="2100px" />
+    </div>
+{% endblock %}

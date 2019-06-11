@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Locations{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        .card {
+            margin-bottom:20px;
+        }
+    </style>
+
+    <div class="container-fluid" style="padding:20px">
+        <div class="row">
+            {% for location in locations %}
+                <div class="col-md-2">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4>{{ location.designation }}</h4>
+                            <img src="{{ location.coverImage }}" alt="cover_image_location" class="img-thumbnail" height="200" width="200">
+                            <p>
+                                <small>{{ location.address }}</small> <br>
+                                {{ location.phone }}
+                            </p>
+                            <div class="btn-group">
+                                <a href="{{ location.website }}" class="btn btn-default">Website</a>
+                                <a href="{{ url('location', {'slug':location.slug}) }}" class="btn btn-default">+ Infos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

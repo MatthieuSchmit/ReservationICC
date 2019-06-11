@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Locations{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        .card {
+            margin-bottom:20px;
+        }
+    </style>
+
+    <div class="container-fluid" style="padding:20px">
+        <div class="row">
+
+            {{ form_start(form) }}
+
+            {{ form_widget(form) }}
+
+            <button class="btn btn-success">Create</button>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

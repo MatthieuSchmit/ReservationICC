@@ -51,23 +51,23 @@ class ShowCtrl extends AbstractController {
         return $data;
     }
 
-    /**
-     * @Route (
-     *     name="v0_get_one_show_slug",
-     *     path="api/v0/shows/{slug}",
-     *     methods={"GET"},
-     *     requirements={"slug"="[[:alnum:]]*      [a-z]|-]*$/"},
-     *     defaults={
-     *         "_controller"="\App\Controller\api\v0\ShowCtrl::getOneSlug",
-     *         "_api_resource_class"="App\Entity\Show",
-     *         "_api_item_operation_name"="getOneShowBySlug"
-     *     },
-     * )
-     * @param Show $data
-     * @return Show
-     */
-    public function getOneSlug(Show $data) {
-        return $data;
-    }
+//    /**
+//     * @Route (
+//     *     name="v0_get_one_show_slug",
+//     *     path="api/v0/shows/{slug}",
+//     *     methods={"GET"},
+//     *     requirements={"slug"="[[:alnum:]|-]*"},
+//     *     defaults={
+//     *         "_controller"="\App\Controller\api\v0\ShowCtrl::getOneSlug",
+//     *         "_api_resource_class"="App\Entity\Show",
+//     *         "_api_item_operation_name"="getOneShowBySlug"
+//     *     },
+//     * )
+//     * @param Show $data
+//     * @return Show
+//     */
+//    public function getOneSlug(Show $data) {
+//        return $data;
+//    }
 
 }

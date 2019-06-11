@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -15,16 +16,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "getOneShow"={
  *             "route_name"="v0_get_one_show",
  *             "normalization_context"={"groups"={"show"}},
- *         },
- *         "getOneShowBySlug"={
- *             "route_name"="v0_get_one_show_slug",
- *             "normalization_context"={"groups"={"show"}},
- *         },
+ *             "swagger_context"= {
+ *                  "summary"= "Get one show.",
+ *                  "description"= "Find one show, with id.",
+ *              },
+ *         }
  *     },
  *     collectionOperations={
  *         "getAllShows"={
  *             "route_name"="v0_get_all_shows",
  *             "normalization_context"={"groups"={"show"}},
+ *             "swagger_context"= {
+ *                  "summary"= "Get shows.",
+ *                  "description"= "Find all shows.",
+ *              },
  *         },
  *     }
  * )
@@ -36,18 +41,43 @@ class Show
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      * @Groups({"show"})
+     * @ApiProperty(
+     *     identifier=true,
+     *     attributes={
+     *         "swagger_context"={
+     *             "type"="integer",
+     *             "description"="The show's id.",
+     *         }
+     *     },
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=60)
      * @Groups({"show"})
+     * @ApiProperty(
+     *     attributes={
+     *         "swagger_context"={
+     *             "type"="string",
+     *             "description"="The show's slug. Unique",
+     *         }
+     *     },
+     * )
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"show"})
+     * @ApiProperty(
+     *     attributes={
+     *         "swagger_context"={
+     *             "type"="string",
+     *             "description"="The show's title.",
+     *         }
+     *     },
+     * )
      */
     private $title;
 
@@ -98,9 +128,15 @@ class Show
     private $coverImage;
 
     /**
-     * All artists - For API.
-     * @var $authors ['type' => 'FirstName LastName']
      * @Groups({"show"})
+     * @ApiProperty(
+     *     attributes={
+     *         "swagger_context"={
+     *             "type"="array",
+     *             "description"="All cast. ['type' : 'FirstName LastName']",
+     *         }
+     *     },
+     * )
      */
     private $cast;
 
@@ -220,7 +256,7 @@ class Show
     public function getCast() {
         $cast = [];
         foreach ($this->getArtists() as $artist) {
-            $cast[$artist->getArtistType()->getType()->getType()] =
+            $cast[$artist->getArtistType()->getType()->getType()][] =
                 $artist->getArtistType()->getArtist()->getFirstname() .
                 ' ' . $artist->getArtistType()->getArtist()->getLastname();
         }
