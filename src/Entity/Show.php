@@ -129,16 +129,14 @@ class Show
 
     /**
      * @Groups({"show"})
-     * @ApiProperty(
-     *     attributes={
-     *         "swagger_context"={
-     *             "type"="array",
-     *             "description"="All cast. ['type' : 'FirstName LastName']",
-     *         }
-     *     },
-     * )
      */
     private $cast;
+
+    // Use in templates
+    private $authors;
+    private $productors;
+    private $actors;
+    private $directors;
 
     public function getId(): ?int
     {
@@ -259,6 +257,50 @@ class Show
             $cast[$artist->getArtistType()->getType()->getType()][] =
                 $artist->getArtistType()->getArtist()->getFirstname() .
                 ' ' . $artist->getArtistType()->getArtist()->getLastname();
+        }
+        return $cast;
+    }
+
+    public function getAuthors() {
+        $cast = [];
+        foreach ($this->getArtists() as $artist) {
+            if ($artist->getArtistType()->getType()->getType() == 'Auteur') {
+                $cast[] = $artist->getArtistType()->getArtist()->getFirstname() .
+                    ' ' . $artist->getArtistType()->getArtist()->getLastname();
+            }
+        }
+        return $cast;
+    }
+
+    public function getProductors() {
+        $cast = [];
+        foreach ($this->getArtists() as $artist) {
+            if ($artist->getArtistType()->getType()->getType() == 'Producteur') {
+                $cast[] = $artist->getArtistType()->getArtist()->getFirstname() .
+                    ' ' . $artist->getArtistType()->getArtist()->getLastname();
+            }
+        }
+        return $cast;
+    }
+
+    public function getActors() {
+        $cast = [];
+        foreach ($this->getArtists() as $artist) {
+            if ($artist->getArtistType()->getType()->getType() == 'Acteur') {
+                $cast[] = $artist->getArtistType()->getArtist()->getFirstname() .
+                    ' ' . $artist->getArtistType()->getArtist()->getLastname();
+            }
+        }
+        return $cast;
+    }
+
+    public function getDirectors() {
+        $cast = [];
+        foreach ($this->getArtists() as $artist) {
+            if ($artist->getArtistType()->getType()->getType() == 'Metteur en scene') {
+                $cast[] = $artist->getArtistType()->getArtist()->getFirstname() .
+                    ' ' . $artist->getArtistType()->getArtist()->getLastname();
+            }
         }
         return $cast;
     }

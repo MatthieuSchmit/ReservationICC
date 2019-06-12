@@ -5,8 +5,8 @@
 
 {% block body %}
 
-   {# {% set rep = booking.representation.showId.artists.artistType %} #}
-   {# {% set artist = rep.artist %}#}
+    {# {% set rep = booking.representation.showId.artists.artistType %} #}
+    {# {% set artist = rep.artist %}#}
 
     <div class="container">
         <h1>Votre réservation (n°{{ booking.id }})</h1>
@@ -18,14 +18,21 @@
                     <dl class="row">
                         <dt class="col-md-4">Numéro</dt>
                         <dd class="col-md-8">{{ booking.id }}</dd>
-                        <dt class="col-md-4">Artist</dt>
-                        <dd class="col-md-8">
-                            {{ booking.representation.showId.artists[0].artistType.artist.firstname }}
 
-                            {%  for artist in booking.representation.showId.cast  %}
-                                {{ dump(artist) }}
-                            {% endfor %}
+                        {% if booking.representation.showId.authors | length > 0 %}
+                            <dt class="col-md-4">Auteurs</dt>
+                            <dd class="col-md-8">
+                                {% for author in booking.representation.showId.authors %}
+                                    {{ author }} <br>
+                                {% endfor %}
+                            </dd>
+                        {% endif %}
+
+                        <dt class="col-md-4">Artists</dt>
+                        <dd class="col-md-8">
+                            {{ dump(booking.representation.showId.cast) }}
                         </dd>
+
                         <dt class="col-md-4">Spectacle</dt>
                         <dd class="col-md-8">{{ booking.representation.showId.title}}</dd>
                         <dt class="col-md-4">Date</dt>
@@ -52,7 +59,7 @@
                     </div>
                     {{ booking.representation.showId.description | raw }}
 
-                    <a href="{#{{ path('user_show', {'slug': author.slug}) }} #}" class="btn btn-primary"> Plusd'info {# {{ author.firstName }} #}</a>
+                    <a href="{#{{ path('user_show', {'slug': author.slug}) }} #}" class="btn btn-primary"> Plus d'info {# {{ author.firstName }} #}</a>
                 </div>
             </div>
             <div class="col">

@@ -16,27 +16,24 @@
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-body">
+                            <img src="{{ show.coverImage }}" alt="coverImage" class="img-rounded img-thumbnail float-right"
+                                 width="200px" height="200px">
                             <h1>{{ show.title }}</h1>
-                            <p class="h2">
-                                <strong>{{ show.price }} &euro;</strong>
+                            <h4>{{ show.price }} €</h4>
 
-                            </p>
+                            <div class="btn-group">
+                                {% if  is_granted('ROLE_ADMIN') %}
+                                    <button class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">Update</button>
+                                    <button class="btn btn-secondary" data-toggle="modal" data-target="#addRepModal">Add Representation</button>
+                                {% endif %}
+                                <button class="btn btn-secondary">Bookable : {{ (show.bookable) ? 'true' : 'false' }}</button>
+                            </div>
 
+                            <hr>
+                            <p>{{ show.description | raw }}</p>
 
-                            {% if  is_granted('ROLE_ADMIN') %}
-                                <a href="{# {{ path('ads_edit', {'slug': ad.slug}) }} #}" class="btn btn-secondary">Modifier le spectacle</a>
-                                <a href="{# {{  path('ads_delete', {'slug' : ad.slug}) }} #}" class="btn btn-danger" oneclick="return confirm(`Etes vous sur de vouloir supprimer l'annonce : ?`)">Supprimer l'annonce</a>
-                            {% endif %}
-            {% if  is_granted('ROLE_ADMIN') %}
-                <div class="btn-group">
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="#updateModal">Update</button>
-                    <button class="btn btn-secondary" data-toggle="modal" data-target="#addRepModal">Add Representation</button>
-                    <button class="btn btn-secondary">Bookable : {{ (show.bookable) ? 'true' : 'false' }}</button>
-                </div>
-            {% endif %}
-
-                            {{ show.description | raw }}
-                            <img src="{{ show.coverImage}}" class="avatar avatar-medium" alt="photo de {{ show.title}}">
+                            <h4>Casting</h4>
+                            {{ dump(show.cast) }}
 
                         </div>
                     </div>
@@ -52,10 +49,7 @@
                             <a href="{{ path('location', {'slug': show.location.slug}) }}">
                                 <h3>{{ show.location.designation }}</h3>
                             </a>
-                            <span class="badge badge-primary">{#{{ a.ads | length }} #}Représentation(s)</span>
-
-
-
+                            {{ show.location.address }}
                         </div>
                     </div>
 
@@ -67,8 +61,15 @@
                                     <tr>
                                         <td>{{representation.date|date('Y-m-d H:i')}}</td>
                                         <td>
-                                            <a href="{{ path('booking_create',{'id' : representation.id})  }}" class="btn btn-primary btn-sm">Reserver!</a>
+                                            {% if show.bookable %}
+                                                <a href="{{ path('booking_create',{'id' : representation.id})  }}"
+                                                   class="btn btn-primary btn-sm">Reserver!</a>
+                                            {% else %}
+                                                <span class="text-danger">Non reservable !</span>
+                                            {% endif %}
                                         </td>
+
+
                                     </tr>
                                 {% endfor %}
 
