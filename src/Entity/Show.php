@@ -138,6 +138,11 @@ class Show
     private $actors;
     private $directors;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="shows")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -303,5 +308,17 @@ class Show
             }
         }
         return $cast;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
