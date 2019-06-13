@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+        {% block title %}Categorie{% endblock %}
+
+
+        {% block body %}
+        <div class="container">
+
+            <h1 class ="my-3" align="center">Tous nos spectacles</h1>
+
+            <div class="row">
+
+
+                {% for cat in cats | reverse %}
+                    <h3>{{ cat.titre }}</h3>
+
+                    {% for specatcle in cat.spectacle %}
+                        {{ specatcle.title }} <br>
+                    {%   endfor %}
+                {% endfor %}
+            </div>
+
+{% endblock %}

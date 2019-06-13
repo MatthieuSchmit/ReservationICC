@@ -25,6 +25,7 @@ class ShowFixture extends Fixture {
             $show->setPrice($faker->randomFloat());
             $show->setDescription('<p>' .join('<p></p>',$faker->paragraphs(3)) . '</p>');
             $show->setCoverImage($faker->imageUrl(500,350));
+            $show->setCategory($this->getReference('category_' . rand(0,4)));
 
             $manager->persist($show);
 
