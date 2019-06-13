@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -20,6 +21,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     *@Assert\Length(min = 3, max = 200, minMessage="le Titre doit faire plus de 3 caractéres ! ", maxMessage="le Titre doit faire moin de 200 caractéres")
      */
     private $title;
 

@@ -19,4 +19,17 @@ class CategoryController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/category/{slug}", name="category_show")
+     *
+     * @return Response
+     */
+    public function show(Category $cat){
+
+        return $this->render('category/show.html.twig', [
+            'category' => $cat
+        ]);
+    }
+
 }

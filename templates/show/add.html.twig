@@ -43,6 +43,16 @@
                     {% endfor %}
                 </select>
                 <br>
+                <br>
+                <h4>Categories</h4>
+                <div class="form-group">
+                    <select class="form-control" id="sel1">
+                        {% for cat in category %}
+                            <option value="{{ cat.id }}">{{ cat.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <h4>Cast</h4>
                 {% for cast in casts %}
                     <div class="form-check">

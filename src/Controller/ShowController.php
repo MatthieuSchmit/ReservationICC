@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Entity\ArtistType;
 use App\Entity\ArtistTypeShow;
+use App\Entity\Category;
 use App\Entity\Location;
 use App\Entity\Show;
 use App\Entity\Type;
@@ -45,9 +46,11 @@ class ShowController extends AbstractController {
      */
     public function add() {
         $locations = $this->getDoctrine()->getRepository(Location::class)->findAll();
+        $cats= $this->getDoctrine()->getRepository(Category::class)->findAll();
         $cast = $this->getDoctrine()->getRepository(ArtistType::class)->findAll();
         return $this->render('show/add.html.twig', [
             'locations' => $locations,
+            'category' => $cats,
             'casts' => $cast,
         ]);
     }
@@ -196,6 +199,27 @@ class ShowController extends AbstractController {
         $em->flush();
 
         return new Response('Show Updated !', 200);
+
+    }
+
+    /**
+     * @Route(
+     *     name="show_update_bookable",
+     *     path="/admin/show/update/bookable",
+     *     methods={"POST"}
+     * )
+     * @param Request $request
+     * @return Response
+     */
+    public function changeBookable(Request $request) {
+        $show = $this->getDoctrine()->getRepository(Show::class)->find($request->get('id'));
+        $show->setBookable(!$show->getBookable());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($show);
+        $em->flush();
+
+        return new Response(($show->getBookable()?'true':'false'), 200);
 
     }
 

@@ -175,6 +175,27 @@
     <script>
         $(function () {
 
+            $(function () {
+
+
+                // AJAX EXAMEN
+                $('#btnBookable').click(function () {
+                    $.ajax({
+                        url: '{{ url('show_update_bookable') }}',
+                        method: 'post',
+                        data: {
+                            'id': '{{ show.id }}'
+                        }},
+                        success : function(i) {
+                            console.log(i);
+                            $('#btnBookable').text('Bookable : ' + e);
+                        },
+                        error: function (i) {
+                            console.error(i);
+                        },
+                    })
+                });
+
             // Update show
             $('#saveUpdate').click(function () {
                 var id = '{{ show.id }}';

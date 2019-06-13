@@ -12,9 +12,10 @@ class CategoryFixture extends Fixture
     {
         // categories
         $types = ['dance', 'comedie', 'Dramatique', 'horreur'];
+
         foreach ($types as $key=>$type) {
             $category = new Category();
-            $category->setTitre($type);
+            $category->setTitle($type);
             $category->setDescription('lorem ipsum');
 
 
@@ -23,5 +24,6 @@ class CategoryFixture extends Fixture
 
             $manager->persist($category);
         }
+        $manager->flush();
     }
 }

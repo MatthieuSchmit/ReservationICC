@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{{ category.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+    <h1 class ="my-3" align="center">Tous nos spectacles</h1>
+
+    <div class="row">
+
+
+        {% for show in category.shows | reverse %}
+            <h3>{{ show.title }}</h3>
+            <br>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
