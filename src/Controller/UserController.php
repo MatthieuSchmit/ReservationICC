@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -28,7 +30,9 @@ class UserController extends AbstractController
      * )
      */
     public function profile() {
-        return $this->render('user/profile.html.twig', []);
+        return $this->render('user/profile.html.twig', [
+            'user' => $this->getUser(),
+        ]);
     }
 
     /**
@@ -44,10 +48,32 @@ class UserController extends AbstractController
      */
     public function profileAdmin($id) {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
-        // TODO : use $user in profile.html.twig !!!
         return $this->render('user/profile.html.twig', [
             'user' => $user,
         ]);
+    }
+
+    /**
+     * @Route(
+     *     name="user_update",
+     *     path="/profile/update",
+     *     methods={"POST"}
+     * )
+     * @param Request $request
+     * @return Response
+     */
+    public function updateProfile(Request $request) {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $user = $doctrine->getRepository(User::class)->find($request->get('id'));
+        $user->setFirstname($request->get('firstname'));
+        $user->setLastname($request->get('lastname'));
+        $user->setEmail($request->get('email'));
+        $user->setRoles([$request->get('role')]);
+        $em->persist($user);
+        $em->flush();
+
+        return new Response('User Updated !', 200);
     }
 }

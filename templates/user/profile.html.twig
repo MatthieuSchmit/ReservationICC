@@ -14,11 +14,14 @@
                             <div class="text-center">
                                 <img src="https://placehold.it/128x128" alt="">
                                 <hr>
-                                <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
-                                <p>{{ app.user.email }}</p>
+                                <h3 id="username">{{ user.firstname }} {{ user.lastname }}</h3>
+                                <p id="userEmail">{{ user.email }}</p>
                                 <div class="btn-group">
-                                    <button class="btn btn-secondary btn-default">Logout</button>
-                                    <button class="btn btn-secondary btn-default">Update</button>
+                                    {% if user == app.user %}
+                                        <a href="{{ url('app_logout') }}" class="btn btn-secondary btn-default">Logout</a>
+                                    {% endif %}
+                                    <button class="btn btn-secondary btn-default" data-toggle="modal"
+                                            data-target="#updateModal">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +30,23 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            {{ dump(app.user.representations) }}
+                            <h2>Mes reservations</h2>
+                            <div class="row">
+                                {% for reservation in user.representations %}
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <a href="{{ url('booking_show', {id: reservation.id}) }}"
+                                                   class="float-right">
+                                                    Info
+                                                </a>
+                                                <h6>{{ reservation.representation.showId.title }}</h6>
+                                                {{ reservation.seat }} place(s) reservée(s)
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -35,4 +54,86 @@
         </div>
     </div>
 
+    <!-- Modal Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label for="updateFirstName">Prenom</label>
+                            <input type="text" class="form-control" name="updateFirstName" id="updateFirstName"
+                                   value="{{ user.firstname }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateLastName">Nom</label>
+                            <input type="text" class="form-control" name="updateLastName" id="updateLastName"
+                                   value="{{ user.lastname }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateEmail">Email</label>
+                            <input type="email" class="form-control" name="updateEmail" id="updateEmail"
+                                   value="{{ user.email }}">
+                        </div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <label for="updateRole">Role</label>
+                            <select name="updateRole" id="updateRole" class="form-control">
+                                <option value="ROLE_USER" {{ ('ROLE_ADMIN' in user.roles) ? '' : 'selected' }}>User</option>
+                                <option value="ROLE_ADMIN" {{ ('ROLE_ADMIN' in user.roles) ? 'selected' : '' }}>Admin</option>
+                            </select>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveUpdate">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#saveUpdate').click(function () {
+                var firstname = $('#updateFirstName').val();
+                var lastname = $('#updateLastName').val();
+                var email = $('#updateEmail').val();
+                var role = $('#updateRole').val();
+
+                if ($.trim(firstname) !== '' && $.trim(lastname) !== '' && $.trim(email) !== '' ) {
+
+                    $.ajax({
+                        url: '{{ url('user_update') }}',
+                        method: 'post',
+                        data: {
+                            id:'{{ user.id }}', firstname:firstname, lastname:lastname, email:email, role:role
+                        },
+                        success: function (e) {
+                            console.log(e);
+                            $('#username').text(firstname + ' ' + lastname);
+                            $('#userEmail').text(email);
+                        },
+                        error: function (e) {
+                            console.error(e);
+                        },
+                    });
+
+                }
+
+
+            });
+        });
+    </script>
+{% endblock %}
+
