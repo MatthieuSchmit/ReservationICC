@@ -32,13 +32,12 @@ class ArtistController extends AbstractController {
      *     methods={"GET"},
      *     requirements={"id"="\d+"}
      * )
-     * @param $id
+     * @param Artist $data
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function info($id) {
-        $artist = $this->getDoctrine()->getRepository(Artist::class)->find($id);
+    public function info(Artist $data) {
         return $this->render('artist/info.html.twig', [
-            'artist' => $artist,
+            'artist' => $data,
         ]);
     }
 

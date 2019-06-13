@@ -4,14 +4,36 @@
 
 {% block body %}
 
-    {% for artistType in artist.type %}
-        {{ artistType.type.type }} <br>
-    {% endfor %}
-
-    {{ dump(artist) }}
-
-    {% if is_granted('ROLE_ADMIN') %}
-        ...
-    {% endif %}
+    <div class="container-fluid">
+        <div class="row" style="padding-top:20px">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>{{ artist.firstname }} {{ artist.lastname }}</h2>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <hr>
+                            <button class="btn btn-default" id="editArtist">Edit</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        {% for artistType in artist.type %}
+                            <h4>{{ artistType.type.type }}</h4>
+                            <ul class="list-group">
+                                {% for show in artistType.shows %}
+                                    <a href="{{ url('show_getshow', {'slug':show.showId.slug}) }}" class="list-group-item">
+                                        {{ show.showId.title }}
+                                    </a>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

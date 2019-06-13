@@ -21,16 +21,12 @@
             <tr>
                 <td>{{ artist.firstname }} {{ artist.lastname }}</td>
                 <td>
-                    <a href="{{ url('artist_info', {id: artist.id}) }}"><i class="fa fa-info"></i></a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        &nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-edit"></i></a>
-                    {% endif %}
-                </td>
-                <td>
                     {% for artistType in artist.type %}
-                        {{ artistType.id }}
                         {{ artistType.type.type }}
                     {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url('artist_info', {id: artist.id}) }}">Infos</a>
                 </td>
             </tr>
         {% endfor %}

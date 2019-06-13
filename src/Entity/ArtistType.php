@@ -29,6 +29,11 @@ class ArtistType
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ArtistTypeShow", mappedBy="artistType", orphanRemoval=true)
+     */
+    private $shows;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,5 +61,10 @@ class ArtistType
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getShows() {
+        return $this->shows;
+
     }
 }
